@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using ShelterCore.Data;
 
 namespace ShelterCore;
 
-public class ShelterContext : DbContext
+public partial class ShelterContext : DbContext
 {
     public DbSet<SpecialConditionData> SpecialConditions => Set<SpecialConditionData>();
     public DbSet<ProfessionData> Professions => Set<ProfessionData>();
@@ -17,10 +18,24 @@ public class ShelterContext : DbContext
 
     private static readonly Random random = new();
 
-    public ShelterContext() => Database.EnsureCreated();
+    public ShelterContext()
+    {}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        optionsBuilder.UseSqlite("Data Source=AppData.db");
+    public ShelterContext(DbContextOptions<ShelterContext> options) : base(options)
+    { }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+            optionsBuilder.UseSqlite("Data Source=AppData.db");
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     internal List<T> GetShuffleData<T>()
     {
@@ -61,4 +76,3 @@ public class ShelterContext : DbContext
 
     private static void Swap<T>(ref T el1, ref T el2) => (el1, el2) = (el2, el1);
 }
-

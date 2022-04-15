@@ -1,4 +1,4 @@
-﻿using ShelterCore.Cryptography;
+using ShelterCore;
 using ShelterCore.Data;
 
 List<UserData> usersData = new(16);
@@ -18,7 +18,7 @@ for (int id = 1; id <= 16; id++)
     });
 }
 
-string key = new KeyGenerator().GetKey(new GameData()
+GameData gd = new()
 {
     WorldData = new WorldData()
     {
@@ -26,6 +26,11 @@ string key = new KeyGenerator().GetKey(new GameData()
         Disaster = new DisasterData(128, "")
     },
     UsersData = usersData
-});
+};
 
-Console.WriteLine(key);
+string key = new KeyGenerator().Generate(gd);
+GameData newGD = new GameDataConverter().Convert(key);
+
+Console.WriteLine(gd.Equals(newGD));
+
+Console.ReadLine();
