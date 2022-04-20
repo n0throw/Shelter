@@ -1,13 +1,8 @@
-﻿namespace ShelterCore.Cryptography;
+﻿namespace StaticGame.Cryptography;
 
-/* Не оптимально работает
- * Результат вида:
- * 114B 684A 1C 114A (Разделители для удобства восприятия)
- * Должен быть:
- * 114B 798A 1C
-*/
 public class BWT : ICryptography
 {
+
     public string Encode(string str)
     {
         str = str.Replace('0', 'A').Replace('1', 'B') + 'C';

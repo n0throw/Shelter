@@ -1,4 +1,4 @@
-﻿namespace ShelterCore.Cryptography;
+﻿namespace StaticGame.Cryptography;
 
 public class RLE : ICryptography
 {

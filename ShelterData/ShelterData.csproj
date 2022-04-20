@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\" />
-    <None Remove="Cryptography\" />
+    <None Remove="Newtonsoft.Json" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Data\" />
+    <None Remove="..\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Cryptography\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
   </ItemGroup>
 </Project>
