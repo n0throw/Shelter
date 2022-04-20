@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Special Conditions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>Special Conditions</h2>
+    <form id="cardForm">
+        <div class="mb-3">
+            <label class="form-label" for="id">Id:</label>
+            <input class="form-control" name="id" />
+        </div>
+        <div class="mb-3">
+            <a id="reset" class="btn btn-sm btn-primary">Reset</a>
+        </div>
+    </form>
+    <table class="table table-condensed table-striped table-bordered">
+        <thead><tr><th>Id</th><th>Description</th></tr></thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>function requestЕype(id = '') {
+
+            if (id === '') {
+                getCards()
+            } else {
+                getCard(id)
+            }
+
+        }
+
+        async function getCards() {
+            const response = await fetch("/api/SpecialConditions/", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.ok === true) {
+
+                const cards = await response.json();
+                const rows = document.querySelector("tbody");
+                cards.forEach(card => rows.append(row(card)));
+            }
+        }
+
+        async function getCard(id) {
+
+            const response = await fetch("/api/SpecialConditions/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const card = await response.json();
+                const rows = document.querySelector("tbody");
+                rows.append(row(card))
+            }
+            else {
+
+                const error = await response.json();
+                console.log(error.message);
+            }
+        }
+
+        function reset() {
+            const form = document.forms["cardForm"];
+
+            requestЕype(form.elements.id.value);
+            console.log(form.id.value);
+
+        }
+
+        function row(card) {
+
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", card.id);
+
+            const idTd = document.createElement("td");
+            idTd.append(card.id);
+            tr.append(idTd);
+
+            const descTd = document.createElement("td");
+            descTd.append(card.description);
+            tr.append(descTd);
+
+            return tr;
+        }
+
+        document.getElementById("reset").addEventListener("click", e => {
+
+            e.preventDefault();
+            reset();
+        })
+
+        getCards();</script>
+</body>
+</html>
