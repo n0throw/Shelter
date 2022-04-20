@@ -88,4 +88,3 @@ app.MapPost("/api/Facts", (Fact fact) =>
 });
 
 app.Run();
-
