@@ -100,9 +100,9 @@ public class KeyGenerator
      * one block - 8 bit (128 value)
      * 1. Disaster
      * 2. Bunker
-     * 
+     *
      * Next blocks playes data
-     * 
+     *
      * 3. SpecialConditions
      * 4. Professions
      * 5. Luggage
@@ -110,7 +110,7 @@ public class KeyGenerator
      * 7. Hobbies
      * 8. Health
      * 9. Facts
-     * 
+     *
      * 10. Luggage playes 2
      * 11. etc...
      */

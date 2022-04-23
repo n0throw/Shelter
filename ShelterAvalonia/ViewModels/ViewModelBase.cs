@@ -5,6 +5,4 @@ using ReactiveUI;
 
 namespace ShelterAvalonia.ViewModels;
 
-public class ViewModelBase : ReactiveObject
-{
-}
+public class ViewModelBase : ReactiveObject {}

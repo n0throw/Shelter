@@ -12,6 +12,28 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid>
+        <Grid.ColumDefenitions>
+            <ColumnDefenition Width="0.7*"/>
+            <ColumnDefenition Width="*"/>
+        </Grid.RowDefenitions>
 
+        <Grid Grid.Column="0">
+            <Grid.RowDefenitions>
+                <RowDefenition Height="*"/>
+                <RowDefenition Height="*"/>
+            </Grid.RowDefenitions>
+            <TextBlock Grid.Row="0" Text="{Bindining Shelter.Description}"/>
+            <TextBlock Grid.Row="0" Text="{Bindining Disaster.Description}"/>
+        </Grid>
+        <ListBox Grid.Column="1" Items="{Binding MyItems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Red" CornerRadius="4" Padding="4">
+                        <TextBlock Text="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </Window>

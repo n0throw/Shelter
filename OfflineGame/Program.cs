@@ -1,10 +1,14 @@
-﻿using ShelterData;
+using ShelterData;
 using ShelterData.Data;
+using StaticGame;
 
 using ShelterContext sc = new();
 
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+KeyGenerator keyGenerator = new();
+GameDataGenerator gameDataGenerator = new();
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+WebApplication app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -74,7 +78,29 @@ app.MapGet("/api/Facts/{id}", (int id) =>
         ToList().
         FirstOrDefault(card => card.Id == id), id));
 
+app.MapGet("/api/GetKey/{playersCount}", (int playersCount) =>
+{
+    try
+	{
+        return Results.Json(keyGenerator.Generate(playersCount));
+	}
+    catch (ArgumentOutOfRangeException ex)
+	{
+        return Results.Problem(ex.Message, ex.ParamName, 416);
+    }
+});
 
+app.MapGet("/api/GetGameData/{key}", (string key) =>
+{
+    try
+    {
+        return Results.Json(gameDataGenerator.Generate(key));
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message, nameof(key), 404);
+    }
+});
 
 app.MapPost("/api/Facts", (Fact fact) =>
 {
@@ -88,4 +114,3 @@ app.MapPost("/api/Facts", (Fact fact) =>
 });
 
 app.Run();
-

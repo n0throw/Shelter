@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShelterData.Data;
 
-namespace ShelterData;
+namespace ShelterDat;
 
 public class ShelterContext : DbContext
 {
